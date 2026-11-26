@@ -1,21 +1,43 @@
 {
   "name": "google-chat-mcp-local",
   "version": "1.0.0",
-  "description": "A local stdio MCP server for Google Chat that runs on your machine with your own OAuth sign-in.",
+  "description": "A local stdio MCP server for Google Chat that runs on your machine with your own Google OAuth sign-in.",
   "type": "module",
   "main": "server.js",
   "bin": {
-    "google-chat-mcp-local": "server.js"
+    "google-chat-mcp-local": "cli.js"
   },
   "scripts": {
     "auth": "node auth.js",
     "start": "node server.js"
   },
-  "keywords": ["mcp", "google-chat", "model-context-protocol"],
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "google-chat",
+    "claude",
+    "mcp-server"
+  ],
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/iammuhammadasimofficial/google-chat-mcp-local.git"
+  },
+  "homepage": "https://github.com/iammuhammadasimofficial/google-chat-mcp-local#readme",
+  "bugs": {
+    "url": "https://github.com/iammuhammadasimofficial/google-chat-mcp-local/issues"
+  },
   "engines": {
     "node": ">=18"
   },
+  "files": [
+    "cli.js",
+    "server.js",
+    "auth.js",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.30.0",
     "googleapis": "^180.0.0",
