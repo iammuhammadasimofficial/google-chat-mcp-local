@@ -2,7 +2,7 @@ import { google } from "googleapis";
 import fs from "node:fs";
 import http from "node:http";
 import { URL } from "node:url";
-import { CREDENTIALS_PATH, TOKEN_PATH, SCOPES } from "./lib/config.js";
+import { CREDENTIALS_PATH, TOKEN_PATH, SCOPES, MISSING_CREDENTIALS_MESSAGE, saveToken } from "./lib/config.js";
 
 const PORT = Number(process.env.GOOGLE_CHAT_AUTH_PORT || 8091);
 const REDIRECT_URI = `http://localhost:${PORT}/oauth2callback`;
@@ -12,11 +12,7 @@ function escapeHtml(s) {
 }
 
 if (!fs.existsSync(CREDENTIALS_PATH)) {
-  console.error(
-    `Missing ${CREDENTIALS_PATH}. Download your "Desktop app" OAuth client JSON from ` +
-      `Google Cloud Console > APIs & Services > Credentials, and save it at that path ` +
-      `(or point GOOGLE_CHAT_CREDENTIALS at it).`
-  );
+  console.error(MISSING_CREDENTIALS_MESSAGE);
   process.exit(1);
 }
 
@@ -61,13 +57,13 @@ const server = http.createServer(async (req, res) => {
     }
 
     const { tokens } = await oAuth2Client.getToken(code);
-    fs.writeFileSync(TOKEN_PATH, JSON.stringify(tokens, null, 2), { mode: 0o600 });
+    saveToken(tokens);
 
     res
       .writeHead(200, { "Content-Type": "text/html" })
       .end("<h1>Success</h1><p>You can close this tab and go back to the terminal.</p>");
 
-    console.log(`\nSaved token to ${TOKEN_PATH}. You can now run: npm start`);
+    console.log(`\nSaved token to ${TOKEN_PATH}. You can now start the server: google-chat-mcp-local`);
     server.close();
     process.exit(0);
   } catch (err) {
