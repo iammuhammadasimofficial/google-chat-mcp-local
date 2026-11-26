@@ -23,9 +23,9 @@ Compared with many hosted connectors:
 - **Works in any MCP client.** Claude Desktop, Claude Code and others.
 - **No extra cost or third-party account.** You only need a Google account and a free Google Cloud project.
 
-## Quick start (run straight from GitHub)
+## Quick start with npx
 
-You need [Node.js](https://nodejs.org) 18 or newer. There is nothing to install or build: `npx` downloads and runs the code from GitHub.
+You need [Node.js](https://nodejs.org) 18 or newer. There is nothing to install or build: `npx` downloads and runs the package.
 
 ### 1. Google Cloud setup (one time)
 
@@ -42,7 +42,7 @@ You need [Node.js](https://nodejs.org) 18 or newer. There is nothing to install 
 ### 2. Sign in
 
 ```
-npx -y github:iammuhammadasimofficial/google-chat-mcp-local auth
+npx -y google-chat-mcp-local auth
 ```
 
 Open the printed link, sign in, and approve the two permissions. The token is saved to `~/.google-chat-mcp/token.json`.
@@ -56,7 +56,7 @@ Open the printed link, sign in, and approve the two permissions. The token is sa
   "mcpServers": {
     "google-chat": {
       "command": "npx",
-      "args": ["-y", "github:iammuhammadasimofficial/google-chat-mcp-local"]
+      "args": ["-y", "google-chat-mcp-local"]
     }
   }
 }
@@ -65,10 +65,12 @@ Open the printed link, sign in, and approve the two permissions. The token is sa
 **Claude Code**:
 
 ```
-claude mcp add google-chat -- npx -y github:iammuhammadasimofficial/google-chat-mcp-local
+claude mcp add google-chat -- npx -y google-chat-mcp-local
 ```
 
-## Install from source
+## Install from GitHub source
+
+To run the latest code without npm, `npx -y github:iammuhammadasimofficial/google-chat-mcp-local` (and `... auth`) works too. To work on the code:
 
 ```
 git clone https://github.com/iammuhammadasimofficial/google-chat-mcp-local.git
