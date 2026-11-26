@@ -42,7 +42,7 @@ You need [Node.js](https://nodejs.org) 18 or newer. There is nothing to install 
 ### 2. Sign in
 
 ```
-npx -y google-chat-mcp-local auth
+npx -y google-chat-mcp-local@1.0.0 auth
 ```
 
 Open the printed link, sign in, and approve the two permissions. The token is saved to `~/.google-chat-mcp/token.json`.
@@ -56,7 +56,7 @@ Open the printed link, sign in, and approve the two permissions. The token is sa
   "mcpServers": {
     "google-chat": {
       "command": "npx",
-      "args": ["-y", "google-chat-mcp-local"]
+      "args": ["-y", "google-chat-mcp-local@1.0.0"]
     }
   }
 }
@@ -65,7 +65,7 @@ Open the printed link, sign in, and approve the two permissions. The token is sa
 **Claude Code**:
 
 ```
-claude mcp add google-chat -- npx -y google-chat-mcp-local
+claude mcp add google-chat -- npx -y google-chat-mcp-local@1.0.0
 ```
 
 ## Install from GitHub source
@@ -109,6 +109,23 @@ CLI: `google-chat-mcp-local [start]`, `google-chat-mcp-local auth`, `--help`, `-
 Scopes: only `chat.spaces.readonly` and `chat.messages`. The `chat.messages` scope already covers downloading attachments, so no extra scope is needed.
 
 ## Safety notes and permissions
+
+Running locally on Google's official APIs removes the third-party server, but no tool is 100% secure. Know these points and follow the recommendations below.
+
+### Recommended setup
+
+- **Pin a version.** Use `google-chat-mcp-local@1.0.0` (as in the examples above) instead of the bare name, so a new release never runs on your machine until you choose to upgrade. Read the release notes before you change the version.
+- **Keep approval prompts on** for `send_message`, `update_message` and `delete_message` in your MCP client, so you see every message before it goes out under your name. A message or document the assistant reads could try to trick it into sending or deleting something (prompt injection).
+- **Protect the token.** `token.json` is saved with owner-only permissions (file 600, folder 700) on macOS and Linux. On Windows it relies on your user profile's permissions, so do not run untrusted software under your account.
+- **Revoke when you stop using it**: https://myaccount.google.com/permissions, then delete `~/.google-chat-mcp/token.json`.
+
+### For maintainers
+
+- Enable two-factor authentication on the npm account that publishes this package, and publish only from a clean clone of the reviewed `main` branch.
+- Keep dependencies to the official ones (`googleapis`, `@modelcontextprotocol/sdk`, `zod`) and update them regularly (`npm audit`).
+
+### What the permissions allow
+
 
 - `token.json` lets whoever holds it read and send Google Chat messages as you, within the two scopes above. Keep it private and never commit or share it. The folder is created owner-only where the OS supports it.
 - Everything the assistant sends is sent as you, under your name. Review what it plans to send, especially messages to many people.
