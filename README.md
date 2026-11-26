@@ -42,7 +42,7 @@ You need [Node.js](https://nodejs.org) 18 or newer. There is nothing to install 
 ### 2. Sign in
 
 ```
-npx -y google-chat-mcp-local@1.0.0 auth
+npx -y google-chat-mcp-local@1.0.1 auth
 ```
 
 Open the printed link, sign in, and approve the two permissions. The token is saved to `~/.google-chat-mcp/token.json`.
@@ -56,7 +56,7 @@ Open the printed link, sign in, and approve the two permissions. The token is sa
   "mcpServers": {
     "google-chat": {
       "command": "npx",
-      "args": ["-y", "google-chat-mcp-local@1.0.0"]
+      "args": ["-y", "google-chat-mcp-local@1.0.1"]
     }
   }
 }
@@ -65,7 +65,7 @@ Open the printed link, sign in, and approve the two permissions. The token is sa
 **Claude Code**:
 
 ```
-claude mcp add google-chat -- npx -y google-chat-mcp-local@1.0.0
+claude mcp add google-chat -- npx -y google-chat-mcp-local@1.0.1
 ```
 
 ## Install from GitHub source
@@ -114,7 +114,7 @@ Running locally on Google's official APIs removes the third-party server, but no
 
 ### Recommended setup
 
-- **Pin a version.** Use `google-chat-mcp-local@1.0.0` (as in the examples above) instead of the bare name, so a new release never runs on your machine until you choose to upgrade. Read the release notes before you change the version.
+- **Pin a version.** Use `google-chat-mcp-local@1.0.1` (as in the examples above) instead of the bare name, so a new release never runs on your machine until you choose to upgrade. Read the release notes before you change the version.
 - **Keep approval prompts on** for `send_message`, `update_message` and `delete_message` in your MCP client, so you see every message before it goes out under your name. A message or document the assistant reads could try to trick it into sending or deleting something (prompt injection).
 - **Protect the token.** `token.json` is saved with owner-only permissions (file 600, folder 700) on macOS and Linux. On Windows it relies on your user profile's permissions, so do not run untrusted software under your account.
 - **Revoke when you stop using it**: https://myaccount.google.com/permissions, then delete `~/.google-chat-mcp/token.json`.

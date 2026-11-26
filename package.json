@@ -1,6 +1,6 @@
 {
   "name": "google-chat-mcp-local",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A local stdio MCP server for Google Chat that runs on your machine with your own Google OAuth sign-in.",
   "type": "module",
   "main": "server.js",
